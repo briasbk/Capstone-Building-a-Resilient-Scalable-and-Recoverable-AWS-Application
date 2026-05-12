@@ -1,0 +1,21 @@
+config:
+  target: "http://ecommerce-alb-434123993.us-east-1.elb.amazonaws.com"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 50
+      name: "Traffic spike"
+    - duration: 60
+      arrivalRate: 5
+      name: "Cool down"
+scenarios:
+  - name: "Browse store"
+    flow:
+      - get:
+          url: "/"
+      - get:
+          url: "/"
+      - get:
+          url: "/"
