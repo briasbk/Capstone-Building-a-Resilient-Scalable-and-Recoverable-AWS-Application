@@ -1,0 +1,9 @@
+{
+  "name": "order-processor",
+  "version": "1.0.0",
+  "description": "ShopAWS Order Processor",
+  "main": "processor.js",
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.0.0"
+  }
+}
