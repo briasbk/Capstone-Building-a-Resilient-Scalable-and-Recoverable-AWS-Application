@@ -1,4 +1,4 @@
-# ShopAWS — Resilient, Scalable, and Recoverable AWS Application
+# ShopAWS - Resilient, Scalable, and Recoverable AWS Application
 ## Capstone Project Documentation
 
 **Student:** BriasK  
@@ -12,9 +12,9 @@
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Architecture Diagram](#architecture-diagram)
-3. [Phase 1 — High Availability](#phase-1--high-availability)
-4. [Phase 2 — Scalability](#phase-2--scalability)
-5. [Phase 3 — Disaster Recovery](#phase-3--disaster-recovery)
+3. [Phase 1 - High Availability](#phase-1--high-availability)
+4. [Phase 2 - Scalability](#phase-2--scalability)
+5. [Phase 3 - Disaster Recovery](#phase-3--disaster-recovery)
 6. [Observability and Operations](#observability-and-operations)
 7. [Scaling Test Report](./scaling-test-report.md)
 8. [DR Runbook](./dr-runbook.md)
@@ -26,7 +26,7 @@
 
 **Scenario:** Design and implement a mission-critical e-commerce web application on AWS that handles unpredictable traffic spikes, remains available during partial infrastructure failures, and supports rapid recovery from disaster events.
 
-**Application:** ShopAWS — a PHP/Apache demo e-commerce store serving product listings across multiple AWS Availability Zones and Regions.
+**Application:** ShopAWS - a PHP/Apache demo e-commerce store serving product listings across multiple AWS Availability Zones and Regions.
 
 **Live endpoints:**
 
@@ -102,7 +102,7 @@
 
 ---
 
-## Phase 1 — High Availability
+## Phase 1 - High Availability
 
 ### Application Load Balancer
 | Property | Value |
@@ -145,7 +145,7 @@
 
 **Justification:** Active-active replication means if us-east-1 fails, us-west-2 continues serving reads and writes with zero data loss.
 
-### Single Points of Failure — Identified and Resolved
+### Single Points of Failure - Identified and Resolved
 | SPOF | Risk | Resolution |
 |---|---|---|
 | Single EC2 instance | App down if instance fails | ALB + 2 EC2s across 2 AZs + ASG |
@@ -156,7 +156,7 @@
 
 ---
 
-## Phase 2 — Scalability
+## Phase 2 - Scalability
 
 ### Auto Scaling Group
 | Property | Value |
@@ -180,7 +180,7 @@
 | Message retention | 4 days |
 | Long polling | 10 seconds |
 
-**Architecture:** Orders are dropped into SQS asynchronously — the web app never slows down due to order processing. Failed orders retry 3 times before going to DLQ for investigation.
+**Architecture:** Orders are dropped into SQS asynchronously - the web app never slows down due to order processing. Failed orders retry 3 times before going to DLQ for investigation.
 
 ### Fargate Order Processor
 | Property | Value |
@@ -208,7 +208,7 @@
 
 ---
 
-## Phase 3 — Disaster Recovery
+## Phase 3 - Disaster Recovery
 
 See [DR Runbook](./dr-runbook.md) for full step-by-step recovery procedures.
 

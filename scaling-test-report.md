@@ -1,5 +1,5 @@
 # Scaling Test Report
-## ShopAWS — Capstone Project
+## ShopAWS - Capstone Project
 
 ---
 
@@ -77,20 +77,20 @@ Each virtual user browsed the store homepage 3 times per session, simulating rea
 
 ## Phase-by-Phase Analysis
 
-### Phase 1 — Warm Up (0–60s, 5 users/sec)
+### Phase 1 - Warm Up (0–60s, 5 users/sec)
 - System responded normally
 - Response times stable around 150–200ms
 - Both EC2 instances serving traffic evenly via ALB
 - No scaling events triggered
 
-### Phase 2 — Traffic Spike (60–180s, 50 users/sec)
+### Phase 2 - Traffic Spike (60–180s, 50 users/sec)
 - Request rate jumped to 52 requests/second
-- Response times increased to mean of 306.9ms — still within acceptable range
+- Response times increased to mean of 306.9ms - still within acceptable range
 - ASG CPU utilization increased across instances
 - ALB successfully distributed load across both AZs (us-east-1b and us-east-1d)
-- 12 socket timeouts observed (0.06% of total) — negligible failure rate
+- 12 socket timeouts observed (0.06% of total) - negligible failure rate
 
-### Phase 3 — Cool Down (180–240s, 5 users/sec)
+### Phase 3 - Cool Down (180–240s, 5 users/sec)
 - Traffic reduced back to baseline
 - Response times returned to normal
 - System stable throughout

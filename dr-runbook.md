@@ -1,5 +1,5 @@
 # Disaster Recovery Runbook
-## ShopAWS — Capstone Project
+## ShopAWS - Capstone Project
 
 ---
 
@@ -58,7 +58,7 @@
 
 ---
 
-## Scenario 1 — Single EC2 Instance Failure
+## Scenario 1 - Single EC2 Instance Failure
 
 **Detection:** ALB health check fails for one target → target marked unhealthy → traffic routed to remaining instances.
 
@@ -86,7 +86,7 @@ aws autoscaling describe-scaling-activities \
 
 ---
 
-## Scenario 2 — Availability Zone Failure
+## Scenario 2 - Availability Zone Failure
 
 **Detection:** All instances in one AZ become unreachable.
 
@@ -100,17 +100,17 @@ aws autoscaling describe-scaling-activities \
 **Expected RPO:** 0 (RDS Multi-AZ synchronous replication)
 
 **Manual validation steps:**
-1. Go to **EC2 → Instances** — confirm instances in healthy AZ are running
-2. Go to **RDS → database-1** — confirm status shows Available
-3. Visit ALB DNS URL — confirm app is still accessible
+1. Go to **EC2 → Instances** - confirm instances in healthy AZ are running
+2. Go to **RDS → database-1** - confirm status shows Available
+3. Visit ALB DNS URL - confirm app is still accessible
 
 ---
 
-## Scenario 3 — Primary Region Failure (us-east-1)
+## Scenario 3 - Primary Region Failure (us-east-1)
 
 **This is the full DR scenario.** Follow these steps in order:
 
-### Step 1 — Detect the failure (0–2 minutes)
+### Step 1 - Detect the failure (0–2 minutes)
 - Route 53 health check fails 3 consecutive times (every 30 seconds)
 - Route 53 automatically switches DNS to us-west-2 endpoint
 - Users are redirected to DR region transparently
@@ -121,15 +121,15 @@ nslookup your-domain.com
 # Should return us-west-2 ALB IP after failover
 ```
 
-### Step 2 — Verify DR region is serving traffic (2–3 minutes)
-1. Visit your domain — confirm app loads from us-west-2
-2. Check us-west-2 ALB target group — confirm instances are healthy
-3. Check DynamoDB Global Tables in us-west-2 — confirm data is available
+### Step 2 - Verify DR region is serving traffic (2–3 minutes)
+1. Visit your domain - confirm app loads from us-west-2
+2. Check us-west-2 ALB target group - confirm instances are healthy
+3. Check DynamoDB Global Tables in us-west-2 - confirm data is available
 
-### Step 3 — Failover RDS to us-west-2 (3–5 minutes)
+### Step 3 - Failover RDS to us-west-2 (3–5 minutes)
 1. Go to **RDS → database-1**
 2. Click **Actions → Reboot with failover**
-3. Confirm — standby in us-east-1d promotes to primary
+3. Confirm - standby in us-east-1d promotes to primary
 4. If full region failure, restore RDS from snapshot in us-west-2:
    - Go to **RDS → Snapshots**
    - Select latest automated snapshot
@@ -137,12 +137,12 @@ nslookup your-domain.com
    - Choose us-west-2 as region
    - Update application DB endpoint
 
-### Step 4 — Confirm DynamoDB is available (automatic)
+### Step 4 - Confirm DynamoDB is available (automatic)
 - DynamoDB Global Tables are active-active
 - us-west-2 replica is already serving reads/writes
 - No action needed
 
-### Step 5 — Document the incident
+### Step 5 - Document the incident
 Record:
 - Time of failure detection
 - Time of Route 53 failover
@@ -152,7 +152,7 @@ Record:
 
 ---
 
-## Scenario 4 — RDS Primary Instance Failure
+## Scenario 4 - RDS Primary Instance Failure
 
 **Detection:** RDS Multi-AZ automatically detects primary failure.
 
